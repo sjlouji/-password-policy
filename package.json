@@ -1,0 +1,30 @@
+{
+  "name": "password-policy",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.ts",
+  "types": "dist/index.type.ts",
+  "scripts": {
+    "_make-bundle": "rollup --config",
+    "build": "tsc && npm run _make-bundle"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/node": "^20.10.0",
+    "rollup-plugin-gzip": "^3.1.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "@types/mocha": "^10.0.6",
+    "mocha": "^10.2.0",
+    "rollup": "^4.6.0",
+    "rollup-plugin-alias": "^2.2.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "ts-node": "^10.9.1"
+  }
+}

@@ -1,0 +1,8 @@
+/package-lock.json
+/node_modules/
+/dist/
+/tsconfig.tsbuildinfo
+/.idea/jsLibraryMappings.xml
+/.idea/modules.xml
+/.idea/password-policy.iml
+/.idea/vcs.xml
