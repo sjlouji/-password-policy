@@ -1,7 +1,7 @@
 import PasswordPolicy from "../lib";
 describe('createPolicy', function () {
   it('should support empty and undefined policies', function () {
-    const password = PasswordPolicy.apply({ contains: { lowerCase: 2, upperCase: 1, numbers: 2 } });
-    console.log(password.validate('LOUJIas12'));
+    const password = PasswordPolicy.apply({ exclude: { words: ['password', 'louji'] } });
+    console.log(password.validate('@10louji'));
   });
 });

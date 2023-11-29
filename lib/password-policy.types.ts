@@ -10,8 +10,16 @@ export type ContainsConstraintType = {
   specialCharacters?: boolean | number;
 }
 
-export type Rules = 'length' | 'contains';
+export type ExcludeConstraintType = {
+  space?: boolean;
+  uniCode?: boolean;
+  repeatingCharacters?: boolean | number;
+  sequenceCharacters?: boolean | number;
+  words?: string [];
+}
+
+export type Rules = 'length' | 'contains' | 'exclude';
 
 export type RuleType = {
-  [key in Rules]?: LengthConstraintType | ContainsConstraintType;
+  [key in Rules]?: LengthConstraintType | ContainsConstraintType | ExcludeConstraintType;
 };
