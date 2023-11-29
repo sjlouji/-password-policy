@@ -3,6 +3,15 @@ export type LengthConstraintType = {
   max?: number;
 }
 
+export type ContainsConstraintType = {
+  lowerCase?: boolean | number;
+  upperCase?: boolean | number;
+  numbers?: boolean | number;
+  specialCharacters?: boolean | number;
+}
+
+export type Rules = 'length' | 'contains';
+
 export type RuleType = {
-  [key: string]: LengthConstraintType;
+  [key in Rules]?: LengthConstraintType | ContainsConstraintType;
 };
