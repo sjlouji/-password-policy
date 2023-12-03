@@ -1,4 +1,5 @@
-import {ExcludeConstraintType} from "../password-policy.types";
+import {ExcludeConstraintType} from "../type";
+import {isEmpty} from "../util/object";
 
 export default function check(password: string, rule: ExcludeConstraintType) {
   const result: any = [];
@@ -33,29 +34,22 @@ export default function check(password: string, rule: ExcludeConstraintType) {
       });
     }
   }
-  if (rule?.words?.length) {
-    if (rule.words?.some(word => password?.toLowerCase().includes(word.toLowerCase()))) {
-      result.push({
-        code: 'repeatingCharacters',
-        message: `Password can not contain excluded words`
-      });
-    }
-  }
-  // TODO code this from the start
-  if (rule?.repeatingCharacters) {
-    const number = typeof rule?.repeatingCharacters === 'number' ? rule?.repeatingCharacters : 3;
-    const regexString = /(.)\1/;
-    const value = password?.match(regexString) || [];
-    if (value?.length) {
-      result.push({
-        code: 'repeatingCharacters',
-        message: `Password must not have ${number} repeating characters`
-      });
-    }
+  if (rule?.words?.length && rule.words?.some(word => password?.toLowerCase().includes(word.toLowerCase()))) {
+    result.push({
+      code: 'repeatingCharacters',
+      message: `Password can not contain excluded words`
+    });
   }
   return result;
 }
 
+function validateRule(ruleOptions: ExcludeConstraintType) {
+  if (isEmpty(ruleOptions)) {
+    throw new Error('Exclude can not accepts empty options');
+  }
+}
+
 export {
   check,
+  validateRule,
 };

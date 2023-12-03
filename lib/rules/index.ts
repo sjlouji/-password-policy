@@ -1,11 +1,7 @@
-import length from './length';
-import contains from './contains';
-import exclude from './exclude';
-
 const rulesMap: any = {
-  length,
-  contains,
-  exclude,
+  length: await import('./length'),
+  contains: await import('./contains'),
+  exclude: await import('./exclude'),
 }
 
 export default rulesMap;

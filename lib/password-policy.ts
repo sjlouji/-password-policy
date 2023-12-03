@@ -1,11 +1,19 @@
-import {Rules, RuleType} from './password-policy.types';
+import { Rules, RuleType } from './type';
 import rulesMap from './rules';
 
 export default class PasswordPolicy {
   private _rules: RuleType = {};
 
   static apply(rules: RuleType) {
-    PasswordPolicy.prototype._rules = rules
+    PasswordPolicy.prototype._rules = rules;
+    const ruleList: Rules[] = Object.keys(rules) as Rules[];
+
+    ruleList.reduce((_acc: any, _itr: Rules) => {
+      const fn = rulesMap[_itr];
+      fn.validateRule(rules[_itr]);
+      return _acc;
+    }, []);
+
     return PasswordPolicy;
   }
 
@@ -17,13 +25,13 @@ export default class PasswordPolicy {
   }
 
   static validate(password: string) {
-    const result: any = [];
     const ruleList: RuleType = this.getRules();
     const rules: Rules[] = Object.keys(ruleList) as Rules[];
-    for (let i: number = 0; i < rules?.length; i += 1) {
-      const fn = rulesMap[rules[i]];
-      result.push(...fn(password, ruleList[rules[i]]));
-    }
-    return result;
+
+    return rules.reduce((_acc: any, _itr: Rules) => {
+      const fn = rulesMap[_itr];
+      _acc.push(...fn.check(password, ruleList[_itr]));
+      return _acc;
+    }, []);
   }
 }

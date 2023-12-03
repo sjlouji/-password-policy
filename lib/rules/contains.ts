@@ -1,4 +1,5 @@
-import {ContainsConstraintType} from "../password-policy.types";
+import {ContainsConstraintType} from "../type";
+import {isEmpty} from "../util/object";
 
 export default function check(password: string, rule: ContainsConstraintType) {
   const result: any = [];
@@ -45,6 +46,13 @@ export default function check(password: string, rule: ContainsConstraintType) {
   return result;
 }
 
+function validateRule(ruleOptions: ContainsConstraintType) {
+  if (isEmpty(ruleOptions)) {
+    throw new Error('Contains can not accepts empty options');
+  }
+}
+
 export {
   check,
+  validateRule,
 }

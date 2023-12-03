@@ -1,4 +1,5 @@
-import {LengthConstraintType} from '../password-policy.types';
+import {LengthConstraintType} from '../type';
+import {isEmpty} from "../util/object";
 
 function minLengthValidation (password: string, min: number) {
   return password?.length <= min;
@@ -6,6 +7,12 @@ function minLengthValidation (password: string, min: number) {
 
 function maxLengthValidation (password: string, min: number) {
   return password?.length >= min;
+}
+
+function validateRule(ruleOptions: LengthConstraintType) {
+  if (isEmpty(ruleOptions)) {
+    throw new Error('Length can not accepts empty options');
+  }
 }
 
 export default function check(password: string, rules: LengthConstraintType) {
@@ -26,5 +33,6 @@ export default function check(password: string, rules: LengthConstraintType) {
 }
 
 export {
-  check,
+  validateRule,
+  check
 }
